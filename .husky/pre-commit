@@ -8,12 +8,19 @@ if [ $? -ne 0 ]; then
   exit 1;
 fi;
 
+#radas os testes
+php artisan test --parallel
+if [ $? -ne 0 ]; then
+  echo "Opa! Deu ruim em algum teste. Arrume antes de continuar...";
+  exit 1;
+fi;
+
 # formata dos os arquivos alterados
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".php\{0,1\}$") || true
 
 for FILE in $STAGED_FILES
 do
-  ./vendor/bin/pint "${FILE}" > /dev/null &1;
+  ./vendor/bin/pint "${FILE}" > /dev/null >&1;
   git add "{$FILE}"
 done;
 
