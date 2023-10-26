@@ -20,7 +20,6 @@ it('should be able to create a new question bigger than 255 characters', functio
     assertDatabaseHas('questions', [
         'question' => str_repeat('a', 260) . '?',
     ]);
-
 });
 
 it('should check if ends with a question mark ?', function () {
