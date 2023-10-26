@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Question;
 use App\Http\Controllers\{ProfileController, QuestionController};
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +15,12 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $questions = Question::query()
+        ->latest()
+        ->get();
+
+    return view('dashboard', compact('questions'));
+
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::post('/question/store', [QuestionController::class, 'store'])->name('question.store');
