@@ -12,7 +12,7 @@ class QuestionFactory extends Factory
     public function definition(): array
     {
         return [
-            'question' => $this->faker->sentence,
+            'question' => $this->faker->realTextBetween(10, 300) . '?',
         ];
     }
 }
