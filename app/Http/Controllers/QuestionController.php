@@ -9,7 +9,15 @@ class QuestionController extends Controller
     public function store()
     {
         $this->validate(request(), [
-            'question' => 'required',
+            'question' => [
+                'required',
+                'min:10',
+                function (string $attribute, mixed $value, \Closure $fail) {
+                    if ($value[strlen($value) - 1] != '?') {
+                        $fail(__('The question must end with a question mark?.'));
+                    }
+                },
+            ],
         ]);
 
         Question::query()->create([
