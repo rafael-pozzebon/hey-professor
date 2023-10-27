@@ -14,14 +14,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    $questions = Question::query()
-        ->latest()
-        ->get();
-
-    return view('dashboard', compact('questions'));
-
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::post('/question/store', [QuestionController::class, 'store'])->name('question.store');
 
