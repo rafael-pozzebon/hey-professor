@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Question;
 use App\Http\Controllers\{ProfileController, QuestionController};
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +16,8 @@ Route::get('/', function () {
 Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::post('/question/store', [QuestionController::class, 'store'])->name('question.store');
+
+Route::post('/question/vote/{question_id}', \App\Http\Controllers\Question\VoteController::class)->name('question.vote');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
