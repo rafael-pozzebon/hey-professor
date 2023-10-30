@@ -7,13 +7,9 @@ use App\Models\{Question, Vote};
 
 class VoteController extends Controller
 {
-    public function __invoke(Question $question_id): \Illuminate\Http\RedirectResponse
+    public function __invoke(Question $question): \Illuminate\Http\RedirectResponse
     {
-        Vote::query()->create([
-            'question_id' => $question_id->id,
-            'user_id'     => auth()->id(),
-            'like'        => 1,
-        ]);
+        auth()->user()->like($question);
 
         return back();
     }
