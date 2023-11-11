@@ -5,11 +5,12 @@
         </h2>
     </x-slot>
 
-    <form action="{{route('question.store')}}" method="post">
+
+    <x-form action="{{route('question.store')}}">
         <x-text-area name="question"/>
-    </form>
+    </x-form>
 
     @foreach($questions as $item)
-        <x-question>{{ $item->question }}</x-question>
+        <x-question :question="$item"></x-question>
     @endforeach
 </x-app-layout>
