@@ -11,7 +11,7 @@ it('should be able to like a question', function () {
 
     //Act
     actingAs($user)
-        ->post(route('question.vote', $question->id))
+        ->post(route('question.like', $question->id))
         ->assertRedirect();
 
     // Assert
@@ -32,10 +32,10 @@ it('should be able to like a question only once', function () {
 
     actingAs($user);
 
-    post(route('question.vote', $question->id));
-    post(route('question.vote', $question->id));
-    post(route('question.vote', $question->id));
-    post(route('question.vote', $question->id));
+    post(route('question.like', $question->id));
+    post(route('question.like', $question->id));
+    post(route('question.like', $question->id));
+    post(route('question.like', $question->id));
 
     assertDatabaseHas('votes', [
         'question_id' => $question->id,
