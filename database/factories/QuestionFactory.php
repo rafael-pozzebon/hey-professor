@@ -13,6 +13,7 @@ class QuestionFactory extends Factory
     {
         return [
             'question' => $this->faker->realTextBetween(10, 300) . '?',
+            'draft'    => $this->faker->boolean,
         ];
     }
 }

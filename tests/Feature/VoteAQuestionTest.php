@@ -24,6 +24,22 @@ it('should be able to like a question', function () {
 
 });
 
+it('should create as a draft all the time', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    post(route('question.store'), [
+        'question' => str_repeat('*', 260) . '?',
+    ]);
+
+    // Assert
+    assertDatabaseHas('questions', [
+        'question' => str_repeat('*', 260) . '?',
+        'draft'    => true,
+    ]);
+
+});
+
 it('should be able to like a question only once', function () {
     $user     = User::factory()->create();
     $question = Question::factory()->create();
