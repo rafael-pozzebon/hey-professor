@@ -13,14 +13,14 @@
                     <x-form action="{{ route('question.like', $question) }}" id="form-like-{{$question->id}}">
                         <button class="flex items-start space-x-1 text-green-500" form="form-like-{{ $question->id }}">
                             <x-icons.thumbs-up class="w-5 text-green-500 cursor-pointer hover:text-green-300" />
-                            <span>{{ $question->likes }}</span>
+                            <span>{{ $question->votes_sum_like ?: 0 }}</span>
                         </button>
                     </x-form>
-                    <x-form action="{{ route('question.like', $question) }}" id="form-unlike-{{$question->id}}">
+                    <x-form action="{{ route('question.unlike', $question) }}" id="form-unlike-{{$question->id}}">
                         <button class="flex items-start space-x-1 text-red-500" form="form-unlike-{{$question->id}}">
                             <x-icons.thumbs-down class="w-5 text-red-500 cursor-pointer hover:text-red-300" />
                             <span>
-                                {{ $question->unlikes }}
+                                {{ $question->votes_sum_unlike ?: 0 }}
                             </span>
                         </button>
                     </x-form>

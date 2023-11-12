@@ -24,8 +24,6 @@ it('should be able to like a question', function () {
 
 });
 
-todo('should be able to unlike a question');
-
 it('should be able to like a question only once', function () {
     $user     = User::factory()->create();
     $question = Question::factory()->create();
@@ -45,4 +43,23 @@ it('should be able to like a question only once', function () {
     ]);
 
     expect($user->votes()->count())->toBe(1);
+});
+
+it('should be able to unlike a question', function () {
+    // Arrange
+    $user     = User::factory()->create();
+    $question = Question::factory()->create();
+
+    //Act
+    actingAs($user)
+        ->post(route('question.unlike', $question->id))
+        ->assertRedirect();
+
+    // Assert
+    assertDatabaseHas('votes', [
+        'question_id' => $question->id,
+        'user_id'     => $user->id,
+        'like'        => 0,
+        'unlike'      => 1,
+    ]);
 });
