@@ -6,6 +6,15 @@ use App\Models\Question;
 
 class QuestionController extends Controller
 {
+    public function index()
+    {
+        $questions = Question::query()
+            ->where('created_by', auth()->id())
+            ->latest()
+            ->get();
+
+        return view('question.index', compact('questions'));
+    }
     public function store()
     {
         $this->validate(request(), [
@@ -26,6 +35,6 @@ class QuestionController extends Controller
             'draft'      => true,
         ]);
 
-        return to_route('dashboard');
+        return redirect()->back();
     }
 }
