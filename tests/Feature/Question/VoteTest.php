@@ -29,13 +29,15 @@ it('should create as a draft all the time', function () {
     actingAs($user);
 
     post(route('question.store'), [
-        'question' => str_repeat('*', 260) . '?',
+        'question'   => str_repeat('*', 260) . '?',
+        'created_by' => $user->id,
     ]);
 
     // Assert
     assertDatabaseHas('questions', [
-        'question' => str_repeat('*', 260) . '?',
-        'draft'    => true,
+        'question'   => str_repeat('*', 260) . '?',
+        'created_by' => $user->id,
+        'draft'      => true,
     ]);
 
 });

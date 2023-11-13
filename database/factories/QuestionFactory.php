@@ -12,8 +12,9 @@ class QuestionFactory extends Factory
     public function definition(): array
     {
         return [
-            'question' => $this->faker->realTextBetween(10, 300) . '?',
-            'draft'    => $this->faker->boolean,
+            'question'   => $this->faker->realTextBetween(10, 300) . '?',
+            'created_by' => \App\Models\User::factory(),
+            'draft'      => $this->faker->boolean,
         ];
     }
 }

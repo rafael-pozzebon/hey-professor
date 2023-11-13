@@ -21,8 +21,9 @@ class QuestionController extends Controller
         ]);
 
         Question::query()->create([
-            'question' => request('question'),
-            'draft'    => true,
+            'question'   => request('question'),
+            'created_by' => auth()->id(),
+            'draft'      => true,
         ]);
 
         return to_route('dashboard');

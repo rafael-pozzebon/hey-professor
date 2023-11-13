@@ -2,7 +2,10 @@
 
 it('should be able to publish a question', function () {
     $user     = \App\Models\User::factory()->create();
-    $question = \App\Models\Question::factory()->create(['draft' => true]);
+    $question = \App\Models\Question::factory()->create([
+        'draft'      => true,
+        'created_by' => $user->id,
+    ]);
 
     \Pest\Laravel\actingAs($user);
 
