@@ -9,7 +9,7 @@ class PublishController extends Controller
 {
     public function __invoke(Question $question)
     {
-        abort_unless(user()->can('publish', $question), 403);
+        $this->authorize('publish', $question);
 
         $question->update([
             'draft' => false,
