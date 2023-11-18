@@ -12,7 +12,7 @@ class DashboardController extends Controller
             'questions' => Question::query()->withSum('votes', 'like')
                 ->withSum('votes', 'unlike')
                 ->latest()
-                ->get(),
+                ->paginate(5),
         ]);
     }
 }

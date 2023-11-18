@@ -1,12 +1,16 @@
 <?php
 
+use App\Models\{Question, User};
+
+use function Pest\Laravel\{actingAs, get};
+
 it('should access route questions', function () {
     // Arrange
-    $user = \App\Models\User::factory()->create();
-    \Pest\Laravel\actingAs($user);
+    $user = User::factory()->create();
+    actingAs($user);
 
     //Act
-    $request = \Pest\Laravel\get(route('dashboard'));
+    $request = get(route('dashboard'));
 
     // Assert
     $request->assertOk();
@@ -15,19 +19,32 @@ it('should access route questions', function () {
 
 it('should list all questions', function () {
     // Arrange
-    $questions = \App\Models\Question::factory()->count(10)->create();
+    $questions = Question::factory()->count(5)->create();
 
-    $user = \App\Models\User::factory()->create();
-    \Pest\Laravel\actingAs($user);
+    $user = User::factory()->create();
+    actingAs($user);
 
     //Act
-    $response = \Pest\Laravel\get(route('dashboard'));
+    $response = get(route('dashboard'));
 
     // Assert
     /**
-     * @var \App\Models\Question $item
+     * @var Question $item
      */
     foreach ($questions as $item) {
         $response->assertSee($item->question);
     }
+});
+
+it('should paginate the result', function () {
+    // Arrange
+    $questions = Question::factory()->count(20)->create();
+
+    $user = User::factory()->create();
+    actingAs($user);
+
+    //Act
+    $response = get(route('dashboard'))
+        ->assertViewHas('questions', fn ($value) => $value instanceof \Illuminate\Pagination\LengthAwarePaginator);
+
 });
