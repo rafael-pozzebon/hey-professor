@@ -58,6 +58,7 @@ it('should order by like and unlike, most liked question should be at the top, m
     $secondUser->unlike($mostUnlikedQuestion);
 
     actingAs($user);
+
     get(route('dashboard'))
         ->assertViewHas('questions', function ($questions) {
 
