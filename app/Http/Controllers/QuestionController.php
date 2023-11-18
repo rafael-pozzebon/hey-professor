@@ -13,7 +13,13 @@ class QuestionController extends Controller
             ->latest()
             ->get();
 
-        return view('question.index', compact('questions'));
+        $archivedQuestions = Question::query()
+            ->where('created_by', auth()->id())
+            ->onlyTrashed()
+            ->latest()
+            ->get();
+
+        return view('question.index', compact('questions', 'archivedQuestions'));
     }
 
     public function store()
