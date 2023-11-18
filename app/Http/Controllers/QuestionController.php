@@ -37,4 +37,13 @@ class QuestionController extends Controller
 
         return redirect()->back();
     }
+
+    public function destroy(Question $question)
+    {
+        $this->authorize('destroy', $question);
+
+        $question->delete();
+
+        return back();
+    }
 }
