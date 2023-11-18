@@ -1,5 +1,6 @@
 @props([
-    'label', 'name', 'value' =>null
+    'label', 'name', 'value' =>null,
+    'question' => null
     ])
 
 <div class="py-12">

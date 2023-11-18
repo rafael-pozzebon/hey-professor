@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <x-form action="{{route('question.store')}}">
+    <x-form action="{{route('question.store')}}" post>
         <x-text-area name="question"/>
     </x-form>
 
@@ -25,6 +25,9 @@
                         <x-form :action="route('question.publish', $item)" put>
                             <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Publicar</button>
                         </x-form>
+                        <a href="{{route('question.edit', $item)}}" class="font-medium text-yellow-100 dark:text-yellow-100 hover:underline">
+                            Editar
+                        </a>
                         <x-form :action="route('question.destroy', $item)" delete>
                             <button type="submit" class="font-medium text-blue-600 dark:text-red-500 hover:underline">Deletar</button>
                         </x-form>
