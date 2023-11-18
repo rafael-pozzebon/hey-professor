@@ -45,6 +45,17 @@ class QuestionController extends Controller
         return view('question.edit', compact('question'));
     }
 
+    public function update(Question $question)
+    {
+        $this->authorize('update', $question);
+
+        $question->update([
+            'question' => request('question'),
+        ]);
+
+        return redirect()->back();
+    }
+
     public function destroy(Question $question)
     {
         $this->authorize('destroy', $question);
