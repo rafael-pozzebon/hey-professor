@@ -15,6 +15,7 @@ class QuestionController extends Controller
 
         return view('question.index', compact('questions'));
     }
+
     public function store()
     {
         $this->validate(request(), [
