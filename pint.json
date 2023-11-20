@@ -19,7 +19,10 @@
         "blank_line_after_opening_tag": false,
         "class_attributes_separation": {
             "elements": {
-                "property": "one"
+                "const": "one",
+                "method": "one",
+                "property": "none",
+                "trait_import": "none"
             }
         },
         "concat_space": {

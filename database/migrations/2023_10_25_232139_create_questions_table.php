@@ -12,7 +12,10 @@ return new class () extends Migration {
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->string('question');
+            $table->foreignId('created_by')->constrained('users');
+            $table->text('question');
+            $table->boolean('draft')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

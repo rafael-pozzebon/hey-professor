@@ -5,13 +5,27 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
+    <div class="my-6 mx-7">
+        <form action="{{ route('dashboard') }}" method="get">
+            @csrf
+            <x-text-input name="search" value="{{ request()->search }}"></x-text-input>
+            <x-button.primary type="submit">Search</x-button.primary>
+        </form>
     </div>
+
+
+
+    @forelse($questions as $item)
+        <x-question :question="$item"></x-question>
+    @empty
+        <div class="my-6 mx-7">
+            <x-draw.empty />
+            <p class="text-gray-500 dark:text-gray-400">No questions found</p>
+        </div>
+
+
+    @endforelse
+
+
+    {{ $questions->withQueryString()->links() }}
 </x-app-layout>
